@@ -1,3 +1,5 @@
-theme: jekyll-theme-minimal
-title: Dev Notes
-description: Quick references for SWE work
+theme: minima
+minima:
+  skin: dark
+title: SWE Notes
+description: Quick references
