@@ -1,4 +1,6 @@
-# SWE Notes
+---
+layout: home
+---
 
 ## Topics
 
