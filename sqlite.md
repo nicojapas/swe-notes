@@ -1,3 +1,7 @@
+---
+title: SQLite
+description: Python sqlite3, connections, queries
+---
 # SQLite Cheatsheet
 
 ## Setup

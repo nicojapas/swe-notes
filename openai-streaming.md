@@ -1,3 +1,7 @@
+---
+title: OpenAI Streaming
+description: Stream responses, SSE, chunk handling
+---
 # OpenAI Streaming Cheatsheet
 
 ## Basic Pattern

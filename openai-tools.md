@@ -1,3 +1,7 @@
+---
+title: OpenAI Function Calling
+description: Function calling, tool schemas, responses
+---
 # OpenAI Function Calling Cheatsheet
 
 ## The Flow

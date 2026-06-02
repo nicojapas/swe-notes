@@ -1,3 +1,7 @@
+---
+title: EventBridge
+description: Event structure, rules, patterns, boto3
+---
 # EventBridge Cheatsheet
 
 ## Event Structure

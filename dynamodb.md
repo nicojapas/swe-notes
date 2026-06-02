@@ -1,3 +1,7 @@
+---
+title: DynamoDB
+description: boto3, queries, scans, CRUD operations
+---
 # DynamoDB Cheatsheet
 
 ## boto3 Setup

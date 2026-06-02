@@ -1,3 +1,8 @@
+---
+title: FastAPI
+description: API skeleton, streaming responses, uvicorn
+---
+
 # FastAPI Cheatsheet
 
 ## Skeleton

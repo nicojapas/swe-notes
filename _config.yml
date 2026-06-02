@@ -7,3 +7,5 @@ page-col: "#1a1a2e"
 text-col: "#e0e0e0"
 link-col: "#6db3f2"
 footer-col: "#1a1a2e"
+site-css:
+  - /style.css

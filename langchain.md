@@ -1,3 +1,7 @@
+---
+title: LangChain
+description: Chat models, chains, tools, agents
+---
 # LangChain Cheatsheet
 
 ## Basic Chat
