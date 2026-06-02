@@ -49,22 +49,44 @@ code {
   border-radius: 4px;
 }
 
-/* GitHub Dark syntax highlighting */
-.highlight { background: #0d1117; }
-.highlight .c, .highlight .c1, .highlight .cm { color: #8b949e; } /* comments */
-.highlight .k, .highlight .kd, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kt { color: #ff7b72; } /* keywords */
-.highlight .n, .highlight .nb, .highlight .nc, .highlight .no, .highlight .nd, .highlight .ni, .highlight .ne, .highlight .nf, .highlight .nl, .highlight .nn, .highlight .nx { color: #e6edf3; } /* names */
-.highlight .na { color: #79c0ff; } /* attribute */
-.highlight .s, .highlight .s1, .highlight .s2, .highlight .sb, .highlight .sc, .highlight .sd, .highlight .se, .highlight .sh, .highlight .si, .highlight .sx { color: #a5d6ff; } /* strings */
-.highlight .m, .highlight .mi, .highlight .mf, .highlight .mh, .highlight .mo { color: #79c0ff; } /* numbers */
-.highlight .o, .highlight .ow { color: #ff7b72; } /* operators */
-.highlight .p { color: #e6edf3; } /* punctuation */
-.highlight .nv, .highlight .vi, .highlight .vg, .highlight .vc { color: #ffa657; } /* variables */
-.highlight .bp { color: #79c0ff; } /* builtins */
-.highlight .fm { color: #d2a8ff; } /* function magic */
-.highlight .nf { color: #d2a8ff; } /* function names */
-.highlight .nc { color: #ffa657; } /* class names */
-.highlight .err { color: #f85149; } /* errors */
+/* GitHub Dark syntax highlighting - override theme colors */
+.highlight, pre.highlight, div.highlight { background: #0d1117 !important; }
+
+/* Comments */
+.c, .c1, .cm, .cs { color: #8b949e !important; }
+
+/* Keywords */
+.k, .kd, .kn, .kp, .kr, .kt, .kc, .kv { color: #ff7b72 !important; }
+
+/* Strings */
+.s, .s1, .s2, .sb, .sc, .sd, .se, .sh, .si, .sx, .sr { color: #a5d6ff !important; }
+
+/* Numbers */
+.m, .mi, .mf, .mh, .mo, .mb, .mx, .il { color: #79c0ff !important; }
+
+/* Names and identifiers */
+.n, .ni, .nl, .py { color: #e6edf3 !important; }
+.na { color: #79c0ff !important; }
+.nb, .bp { color: #79c0ff !important; }
+.nc { color: #ffa657 !important; }
+.nf, .fm { color: #d2a8ff !important; }
+.nn { color: #ffa657 !important; }
+.no, .nd { color: #79c0ff !important; }
+.nv, .vi, .vg, .vc, .vm { color: #ffa657 !important; }
+.ne { color: #ffa657 !important; }
+.nx { color: #e6edf3 !important; }
+
+/* Operators and punctuation */
+.o, .ow { color: #ff7b72 !important; }
+.p { color: #e6edf3 !important; }
+
+/* Others */
+.err { color: #f85149 !important; background: transparent !important; }
+.w { color: #e6edf3 !important; }
+.nt { color: #7ee787 !important; }
+.gh, .gu { color: #79c0ff !important; }
+.gd { color: #f85149 !important; }
+.gi { color: #7ee787 !important; }
 
 /* Tables */
 table {
