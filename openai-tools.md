@@ -1,14 +1,8 @@
 ---
-title: OpenAI Function Calling
+title: OpenAI Tools
 description: Function calling, tool schemas, responses
 ---
-# OpenAI Function Calling Cheatsheet
-
-## The Flow
-
-1. Send request with `tools` array
-2. Model returns either text OR function call (not both)
-3. If function call: execute it, send result back, get final response
+# OpenAI - Function Calling
 
 ## Tool Schema
 
@@ -21,68 +15,81 @@ tools = [
         "parameters": {
             "type": "object",
             "properties": {
-                "location": {
-                    "type": "string",
-                    "description": "City name"
-                }
+                "location": {"type": "string", "description": "City name"}
             },
-            "required": ["location"]
-        }
+            "required": ["location"],
+            "additionalProperties": False
+        },
+        "strict": True
     }
 ]
 ```
 
-## Streaming + Tools Pattern
+## Non-Streaming
 
 ```python
-def generate():
-    function_call = None
+response = client.responses.create(
+    model=os.getenv("OPENAI_MODEL"),
+    input=[{"role": "user", "content": "What's the weather in Paris?"}],
+    tools=tools
+)
 
+tool_call = response.output[0]
+if tool_call.type == "function_call":
+    result = get_weather(json.loads(tool_call.arguments)["location"])
+
+    final = client.responses.create(
+        model=os.getenv("OPENAI_MODEL"),
+        input=[
+            {"role": "user", "content": "What's the weather in Paris?"},
+            {"type": "function_call_output", "call_id": tool_call.call_id, "output": result}
+        ]
+    )
+    print(final.output_text)
+```
+
+## Streaming
+
+```python
+def generate(prompt):
+    stream = client.responses.create(
+        model=os.getenv("OPENAI_MODEL"),
+        input=[{"role": "user", "content": prompt}],
+        tools=tools,
+        stream=True
+    )
+
+    tool_call = None
     for event in stream:
-        # Capture function call
         if event.type == "response.function_call_arguments.done":
-            function_call = event
-
-        # Yield text (for non-tool responses)
+            tool_call = event
         if event.type == "response.output_text.delta":
             yield event.delta
 
-    # After stream ends, handle function call
-    if function_call:
-        args = json.loads(function_call.arguments)
-        result = get_weather(args["location"])
+    if tool_call:
+        result = get_weather(json.loads(tool_call.arguments)["location"])
 
-        # Second API call with result
         final = client.responses.create(
             model=os.getenv("OPENAI_MODEL"),
             input=[
-                {"role": "user", "content": request.prompt},
-                {
-                    "type": "function_call",
-                    "id": function_call.item_id,
-                    "name": function_call.name,
-                    "arguments": function_call.arguments
-                },
-                {
-                    "type": "function_call_output",
-                    "call_id": function_call.item_id,
-                    "output": result
-                }
+                {"role": "user", "content": prompt},
+                {"type": "function_call_output", "call_id": tool_call.call_id, "output": result}
             ],
             stream=True
         )
-
         for event in final:
             if event.type == "response.output_text.delta":
                 yield event.delta
 ```
 
-## Key Attributes on function_call event
+## Key Fields
 
-- `function_call.name` - function name
-- `function_call.arguments` - JSON string of args
-- `function_call.item_id` - use as call_id
+| Field | Description |
+|-------|-------------|
+| `tool_call.call_id` | ID to reference in output |
+| `tool_call.name` | Function name |
+| `tool_call.arguments` | JSON string of args |
 
 ## Docs
 
-- https://platform.openai.com/docs/guides/function-calling
+- https://developers.openai.com/api/docs/guides/function-calling
