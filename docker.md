@@ -25,9 +25,6 @@ docker build -t my-service .
 
 # Run
 docker run -p 8000:8000 --env-file .env my-service
-
-# Run with volume (for persistent data)
-docker run -p 8000:8000 --env-file .env -v $(pwd)/data:/app/data my-service
 ```
 
 ## Port Mapping
@@ -52,6 +49,11 @@ docker run -p 8000:8000 --env-file .env -v $(pwd)/data:/app/data my-service
 ```bash
 -v /path/on/host:/path/in/container
 -v $(pwd)/data:/app/data  # current dir's data folder
+```
+
+## Run with volume for data persistance
+```bash
+docker run -p 8000:8000 --env-file .env -v $(pwd)/data:/app/data my-service
 ```
 
 ## Notes
