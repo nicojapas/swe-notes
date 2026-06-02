@@ -15,7 +15,8 @@ client = OpenAI(
 )
 
 response = client.responses.create(
-    # Cheap model in OpenAI -> OPENAI_MODEL="gpt-5.4-nano"
+    # Cheap model in OpenAI -> OPENAI_MODEL=gpt-5.4-nano
+    # Free model in groq -> OPENAI_MODEL=llama-3.3-70b-versatile
     model=os.getenv("OPENAI_MODEL"),
     input="Write a short bedtime story about a unicorn."
 )
