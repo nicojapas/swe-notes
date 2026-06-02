@@ -2,9 +2,6 @@
 title: Docker
 description: Dockerfile, build, run, volumes, env vars
 ---
-
-# Docker Cheatsheet
-
 ## Dockerfile Template
 
 ```dockerfile
@@ -20,27 +17,17 @@ COPY . .
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 ```
 
-## requirements.txt
-
-```
-fastapi
-uvicorn
-openai
-python-dotenv
-pydantic
-```
-
 ## Build & Run
 
 ```bash
 # Build
-docker build -t chat-service .
+docker build -t my-service .
 
 # Run
-docker run -p 8000:8000 --env-file .env chat-service
+docker run -p 8000:8000 --env-file .env my-service
 
 # Run with volume (for persistent data)
-docker run -p 8000:8000 --env-file .env -v $(pwd)/data:/app/data chat-service
+docker run -p 8000:8000 --env-file .env -v $(pwd)/data:/app/data my-service
 ```
 
 ## Port Mapping
@@ -57,7 +44,7 @@ docker run -p 8000:8000 --env-file .env -v $(pwd)/data:/app/data chat-service
 --env-file .env
 
 # Individual
--e OPENAI_API_KEY=sk-...
+-e MY_API_KEY=sk-...
 ```
 
 ## Volume Mounting
@@ -72,4 +59,4 @@ docker run -p 8000:8000 --env-file .env -v $(pwd)/data:/app/data chat-service
 - Rebuild after code changes: `docker build -t name .`
 - `.env` values: NO quotes when using `--env-file`
 - Container filesystem is isolated and ephemeral
-- Use volumes for persistent data (like SQLite db)
+- Use volumes for persistent data
