@@ -34,18 +34,23 @@ response = client.responses.create(
     tools=tools
 )
 
-tool_call = response.output[0]
-if tool_call.type == "function_call":
-    result = get_weather(json.loads(tool_call.arguments)["location"])
+for item in response.output:
+    if item.type == "function_call":
+        result = get_weather(json.loads(item.arguments)["location"])
+        print("r", result)
+        final = client.responses.create(
+            model=os.getenv("OPENAI_MODEL"),
+            input=[
+                {"role": "user", "content": "What's the weather in Paris?"},
+                item,
+                {"type": "function_call_output", "call_id": item.call_id, "output": result}
+            ]
+        )
+        
+        return final.output_text
 
-    final = client.responses.create(
-        model=os.getenv("OPENAI_MODEL"),
-        input=[
-            {"role": "user", "content": "What's the weather in Paris?"},
-            {"type": "function_call_output", "call_id": tool_call.call_id, "output": result}
-        ]
-    )
-    print(final.output_text)
+return response.output_text    
+
 ```
 
 ## Streaming
@@ -73,23 +78,20 @@ def generate(prompt):
             model=os.getenv("OPENAI_MODEL"),
             input=[
                 {"role": "user", "content": prompt},
-                {"type": "function_call_output", "call_id": tool_call.call_id, "output": result}
+                {"type": "function_call", "call_id": tool_call.item_id, "name": tool_call.name, "arguments": tool_call.arguments},
+                {"type": "function_call_output", "call_id": tool_call.item_id, "output": result}
             ],
             stream=True
         )
         for event in final:
             if event.type == "response.output_text.delta":
                 yield event.delta
+
+return StreamingResponse(generate("What's the weather in Paris?"))
 ```
-
-## Key Fields
-
-| Field | Description |
-|-------|-------------|
-| `tool_call.call_id` | ID to reference in output |
-| `tool_call.name` | Function name |
-| `tool_call.arguments` | JSON string of args |
 
 ## Docs
 
-- https://developers.openai.com/api/docs/guides/function-calling
+- [Function calling guide](https://developers.openai.com/api/docs/guides/function-calling)
+- [Response object schema](https://developers.openai.com/api/reference/resources/responses/methods/create)
+- [Streaming events schema](https://developers.openai.com/api/reference/resources/responses/streaming-events)
