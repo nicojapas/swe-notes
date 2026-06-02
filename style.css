@@ -35,6 +35,30 @@ pre {
   border-radius: 6px;
   padding: 1rem;
   overflow-x: auto;
+  position: relative;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  background: #30363d;
+  color: #e6edf3;
+  border: 1px solid #484f58;
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+pre:hover .copy-btn {
+  opacity: 1;
+}
+
+.copy-btn:hover {
+  background: #484f58;
 }
 
 pre code {
