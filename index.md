@@ -1,14 +1,12 @@
-# Dev Notes
-
-Quick reference for backend development with Python.
+# SWE Notes
 
 ## Topics
 
-- [FastAPI](fastapi.md) - Skeleton, StreamingResponse, run commands
-- [OpenAI Streaming](openai-streaming.md) - Basic streaming pattern, event types
-- [OpenAI Tools](openai-tools.md) - Function calling, tool schema, streaming + tools
-- [SQLite](sqlite.md) - Init, insert, read patterns
-- [Docker](docker.md) - Dockerfile template, build/run, volumes
+- [FastAPI](fastapi.md)
+- [OpenAI Streaming](openai-streaming.md)
+- [OpenAI Tools](openai-tools.md)
+- [SQLite](sqlite.md)
+- [Docker](docker.md)
 
 ## Links
 
